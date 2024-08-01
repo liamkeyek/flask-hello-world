@@ -72,7 +72,9 @@ def selecting():
         conn.close()
         
         response_string = ""
-        response_string += "<table>"
+        response_string += "<table border='1'>"
+        response_string += "<tr><th>First</th><th>Last</th><th>City</th><th>Name</th><th>Number</th></tr>"
+        
         for player in records:
             response_string += "<tr>"
             for info in player:
