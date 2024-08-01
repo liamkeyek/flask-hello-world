@@ -37,6 +37,27 @@ def creating():
         return "Basketball Table Successfully Created"
     except Exception as e:
         return f"An error occurred: {e}"
+    
+@app.route('/db_insert')
+def inserting():
+    try:
+        conn = psycopg2.connect("postgresql://liam_lab_10_postgresql_db_user:ZPqw3tqzwtOjm6kAVf6EzlKPRjYLaiL1@dpg-cqm0g5qj1k6c73e1h1ig-a/liam_lab_10_postgresql_db")
+        cur = conn.cursor()
+        
+        cur.execute('''
+            INSERT INTO Basketball (First, Last, City, Name, Number)
+            VALUES
+            ('Jayson', 'Tatum', 'Boston', 'Celtics', 0),
+            ('Stephen', 'Curry', 'San Francisco', 'Warriors', 30),
+            ('Nikola', 'Jokic', 'Denver', 'Nuggets', 15),
+            ('Kawhi', 'Leonard', 'Los Angeles', 'Clippers', 2);
+        ''')
+        conn.commit()
+        conn.close()
+
+        return "Basketball Table Successfully Populated"
+    except Exception as e:
+        return f"An error occurred: {e}"
 
 if __name__ == '__main__':
     app.run()
