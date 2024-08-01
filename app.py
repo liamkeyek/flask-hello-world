@@ -59,5 +59,30 @@ def inserting():
     except Exception as e:
         return f"An error occurred: {e}"
 
+@app.route('/db_select')
+def selecting():
+    try:
+        conn = psycopg2.connect("postgresql://liam_lab_10_postgresql_db_user:ZPqw3tqzwtOjm6kAVf6EzlKPRjYLaiL1@dpg-cqm0g5qj1k6c73e1h1ig-a/liam_lab_10_postgresql_db")
+        cur = conn.cursor()
+        
+        cur.execute('SELECT * FROM Basketball;')
+        records = cur.fetchall()
+        
+        cur.close()
+        conn.close()
+        
+        response_string = ""
+        response_string += "<table>"
+        for player in records:
+            response_string += "<tr>"
+            for info in player:
+                response_string += "<td>{}</td>".format(info)
+            response_string += "</tr>" 
+        response_string += "</table>"
+        return response_string
+    
+    except Exception as e:
+        return f"An error occurred: {e}"
+
 if __name__ == '__main__':
     app.run()
