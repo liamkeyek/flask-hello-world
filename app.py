@@ -85,6 +85,22 @@ def selecting():
     
     except Exception as e:
         return f"An error occurred: {e}"
+    
+@app.route('/db_drop')
+def dropping():
+    try:
+        conn = psycopg2.connect("postgresql://liam_lab_10_postgresql_db_user:ZPqw3tqzwtOjm6kAVf6EzlKPRjYLaiL1@dpg-cqm0g5qj1k6c73e1h1ig-a/liam_lab_10_postgresql_db")
+        cur = conn.cursor()
+        cur.execute('DROP TABLE Basketball;')
+        conn.commit()
+        cur.close()
+        conn.close()
+        
+        return "Basketball Table Successfully Dropped"
+    
+    except Exception as e:
+        return f"An error occurred: {e}"
+
 
 if __name__ == '__main__':
     app.run()
